@@ -6,7 +6,7 @@ import Tela404 from "./componentes/Telas/Tela404";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TelalLogin from "./componentes/Telas/TelaLogin";
 
-const ContextoUsuario = createContext();
+export const ContextoUsuario = createContext();
 function App() {
   const [usuario, setUsuario] = useState({
     "usuario":"",
