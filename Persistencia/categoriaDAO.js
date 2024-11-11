@@ -58,27 +58,30 @@ export default class CategoriaDAO{
     }
 
     async consultar(termo){
-        let sql ="";
-        let parametros=[];
-        if(isNaN(parseInt(termo)))
-        {
-            sql= 'SELECT * FROM categoria WHERE descricao LIKE ? ORDER BY descricao';
+        let sql = "";
+        let parametros = [];
+        if (isNaN(parseInt(termo))) {
+            sql = "SELECT * FROM categoria WHERE descricao LIKE ? ORDER BY descricao";
             parametros.push("%"+termo+"%");
         }
-        else
-        {
-            sql= 'SELECT * FROM categoria ORDER BY descricao WHERE codigo = ? ORDER BY descricao';
+        else{
+            sql = "SELECT * FROM categoria WHERE codigo = ? ORDER BY descricao";
             parametros.push(termo);
         }
-        const conexao = conectar();
-        const [registros, campos] = await conexao.query(sql,parametros);
+        const conexao = await conectar();
+        
+        const [registros, campos] = await conexao.query(sql, parametros);
+        await conexao.release();
         let listaCategoria=[];
-        for(const registro of registros)
-        {
-            const categoria = new Categoria(registro['codigo'], registro['descricao']);
+        for (const registro of registros){
+            const categoria = new Categoria(registro['codigo'],
+                                            registro['descricao']    
+            );
             listaCategoria.push(categoria);
         }
+        
         return listaCategoria;
+
     }
 
 }
