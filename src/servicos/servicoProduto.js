@@ -1,4 +1,4 @@
-const urlBase = 'https:/sistema-backend-bay.vercel.app/produto';
+const urlBase = 'https://sistema-backend-uoet.vercel.app/produto';
 
 export async function gravarProduto(produto){
     const resposta = await fetch(urlBase,{
